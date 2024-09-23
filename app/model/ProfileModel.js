@@ -13,6 +13,12 @@ const profileSchema = new mongoose.Schema(
     cus_city: {
       type: String,
     },
+    cus_country: {
+      type: String,
+    },
+    cus_fax: {
+      type: String,
+    },
     cus_name: {
       type: String,
     },
@@ -23,9 +29,6 @@ const profileSchema = new mongoose.Schema(
       type: String,
     },
     cus_state: {
-      type: String,
-    },
-    cus_fax: {
       type: String,
     },
     ship_add: {
@@ -40,10 +43,10 @@ const profileSchema = new mongoose.Schema(
     ship_name: {
       type: String,
     },
-    ship_postcode: {
+    ship_phone: {
       type: String,
     },
-    ship_phone: {
+    ship_postcode: {
       type: String,
     },
     ship_state: {
@@ -56,7 +59,7 @@ const profileSchema = new mongoose.Schema(
   }
 );
 
-const Profiles = mongoose.model("profiles", profileSchema);
+const Profile = mongoose.model("profiles", profileSchema);
 
 //export
-export default Profiles;
+export default Profile;

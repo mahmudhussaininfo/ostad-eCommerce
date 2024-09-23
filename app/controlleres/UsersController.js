@@ -1,43 +1,44 @@
-import Users from "../model/UserModel.js";
-import sendEmail from "../utility/EmailUtilis.js";
-import { tokenEncode } from "../utility/TokenUtils.js";
+// import Users from "../model/UserModel.js";
+// import sendEmail from "../utility/EmailUtilis.js";
+// import { tokenEncode } from "../utility/TokenUtils.js";
+
+import {
+  createUserService,
+  readUserService,
+  updateUserProfileService,
+  userLoginService,
+  verifyLoginService,
+} from "../services/userService.js";
 
 //register
-export const register = async (req, res) => {
-  try {
-    const reqBody = req.body;
-    const user = await Users.create(reqBody);
-
-    if (user) {
-      return res.status(200).json({
-        message: `Hi ${user.firstName}, your registration successfully done`,
-        user,
-      });
-    }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+export const register = async (req, res) => {};
 
 //login
 export const login = async (req, res) => {
-  try {
-    const reqBody = req.body;
-    const user = await Users.findOne(reqBody);
+  const result = await userLoginService(req);
+  return res.status(200).json(result);
+};
 
-    if (!user) {
-      return res.status(404).json({
-        message: `user not found`,
-      });
-    } else {
-      let token = await tokenEncode(user.email, user._id);
-      return res.status(200).json({
-        message: "user login success",
-        user: { token: token, user },
-      });
-    }
-  } catch (error) {
-    console.log(error.message);
-    return res.status(500).json({ message: "Server error" });
-  }
+// verify login
+export const verifyLogin = async (req, res) => {
+  const result = await verifyLoginService(req);
+  return res.status(200).json(result);
+};
+
+// create user
+export const createUser = async (req, res) => {
+  const result = await createUserService(req);
+  return res.status(200).json(result);
+};
+
+// update user
+export const updateUserProfile = async (req, res) => {
+  let result = await updateUserProfileService(req);
+  return res.json(result);
+};
+
+// read user
+export const readUser = async (req, res) => {
+  const result = await readUserService(req);
+  return res.status(200).json(result);
 };
