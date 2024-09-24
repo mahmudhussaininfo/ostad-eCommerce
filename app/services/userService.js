@@ -95,19 +95,13 @@ export const updateUserProfileService = async (req) => {
 export const readUserService = async (req) => {
   try {
     let user_id = req.headers.user_id;
-    console.log("User ID:", user_id);
-
     const data = await Profile.findOne({ userID: user_id });
-
-    console.log(data);
-
     if (!data) {
       return {
         status: "faild",
         message: "User profile not found",
       };
     }
-
     return {
       status: "success",
       message: "User profile read successful",

@@ -5,6 +5,10 @@ import * as ProductController from "../app/controlleres/ProductController.js";
 import * as userControlller from "../app/controlleres/UsersController.js";
 import AuthMiddleware from "../app/middlewares/AuthMiddleware.js";
 
+import * as wishListController from "../app/controlleres/wishListController.js";
+
+import * as cartController from "../app/controlleres/cartController.js";
+
 //router init
 const router = express.Router();
 
@@ -29,6 +33,25 @@ router.post("/verifylogin", userControlller.verifyLogin);
 router.post("/createUser", AuthMiddleware, userControlller.createUser);
 router.post("/updateUser", AuthMiddleware, userControlller.updateUserProfile);
 router.get("/readUser", AuthMiddleware, userControlller.readUser);
+
+//wishLIst routes
+
+router.post(
+  "/createWishList",
+  AuthMiddleware,
+  wishListController.createWishList
+);
+router.post(
+  "/deleteWishList",
+  AuthMiddleware,
+  wishListController.deleteWishList
+);
+router.get("/readWishList", AuthMiddleware, wishListController.readWishList);
+
+//cart routes
+router.post("/createCart", AuthMiddleware, cartController.createCart);
+router.get("/readCart", AuthMiddleware, cartController.readCart);
+router.post("/deleteCart", AuthMiddleware, cartController.deleteCart);
 
 //export
 export default router;
