@@ -71,10 +71,41 @@ export const readCartService = async (req) => {
   }
 };
 
+//update cart list
+export const updateCartService = async (req) => {
+  try {
+    let user_id = req.headers.user_id;
+    let { id, size, qty, color } = req.body;
+
+    let updateJson = {
+      _id: id,
+      userID: user_id,
+    };
+    let updateData = { size, qty, color };
+
+    let data = await Cart.updateOne(updateJson, { $set: updateData });
+
+    // //sir code
+    // let data = await Cart.updateOne({_id : id, userID : user_id}, {$set : updateData});
+
+    return {
+      status: "success",
+      message: "cart update successful",
+      data,
+    };
+  } catch (error) {
+    return { status: "error", message: error.message };
+  }
+};
+
 //read cart list
 export const deleteCartService = async (req) => {
   try {
     let user_id = req.headers.user_id;
+
+    // //my code here
+    // let { id } = req.params;
+
     let { id } = req.body;
 
     let jsonData = {

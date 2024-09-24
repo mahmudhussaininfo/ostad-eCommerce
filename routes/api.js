@@ -33,6 +33,8 @@ router.post("/verifylogin", userControlller.verifyLogin);
 router.post("/createUser", AuthMiddleware, userControlller.createUser);
 router.post("/updateUser", AuthMiddleware, userControlller.updateUserProfile);
 router.get("/readUser", AuthMiddleware, userControlller.readUser);
+router.post("/review", AuthMiddleware, userControlller.reviewProduct);
+router.get("/review/:id", AuthMiddleware, userControlller.reviewDelete);
 
 //wishLIst routes
 
@@ -52,6 +54,7 @@ router.get("/readWishList", AuthMiddleware, wishListController.readWishList);
 router.post("/createCart", AuthMiddleware, cartController.createCart);
 router.get("/readCart", AuthMiddleware, cartController.readCart);
 router.post("/deleteCart", AuthMiddleware, cartController.deleteCart);
+router.post("/updateCart", AuthMiddleware, cartController.updateCart);
 
 //export
 export default router;

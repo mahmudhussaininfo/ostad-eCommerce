@@ -3,6 +3,10 @@
 // import { tokenEncode } from "../utility/TokenUtils.js";
 
 import {
+  createReviewService,
+  removeReviewService,
+} from "../services/reviewService.js";
+import {
   createUserService,
   readUserService,
   updateUserProfileService,
@@ -40,5 +44,17 @@ export const updateUserProfile = async (req, res) => {
 // read user
 export const readUser = async (req, res) => {
   const result = await readUserService(req);
+  return res.status(200).json(result);
+};
+
+//user product review
+export const reviewProduct = async (req, res) => {
+  const result = await createReviewService(req);
+  return res.status(200).json(result);
+};
+
+//delete review
+export const reviewDelete = async (req, res) => {
+  const result = await removeReviewService(req);
   return res.status(200).json(result);
 };

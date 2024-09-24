@@ -14,9 +14,17 @@ export const createWishListService = async (req) => {
       productID: productID,
     };
 
-    await WishList.updateOne(jsonData, { $set: jsonData }, { upsert: true });
+    let createData = {
+      productID,
+    };
 
-    return { status: "success", message: "Product added to wishlist" };
+    let data = await WishList.updateOne(
+      jsonData,
+      { $set: createData },
+      { upsert: true }
+    );
+
+    return { status: "success", message: "Product added to wishlist", data };
   } catch (error) {
     return { status: "error", message: error.message };
   }
