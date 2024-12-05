@@ -9,9 +9,9 @@ export const userLoginService = async (req) => {
     let { email } = req.body;
     let otp = Math.floor(100000 + Math.random() * 900000);
 
-    // let emailSubject = "Emal varification msg";
-    // let emailMessage = `Your otp code is ${otp}`;
-    // await sendEmail(email, emailSubject, emailMessage);
+    let emailSubject = "Emal varification msg";
+    let emailMessage = `Your otp code is ${otp}`;
+    let mailSend = await sendEmail(email, emailMessage, emailSubject);
 
     const data = await User.updateOne(
       { email },
@@ -19,7 +19,11 @@ export const userLoginService = async (req) => {
       { upsert: true }
     );
 
-    return { status: "success", message: "otp code successfully update" };
+    return {
+      status: "success",
+      message: "otp code successfully update",
+      mailSend,
+    };
   } catch (error) {
     return { status: "faild", data: error.message };
   }
@@ -33,7 +37,7 @@ export const verifyLoginService = async (req) => {
     if (total.length === 1) {
       let user_id = await User.find({ email, otp }).select("_id");
       let token = await tokenEncode(email, user_id[0]["_id"].toString());
-      //my code
+      // //my code
       // let user_id = await User.find({ email, otp });
       // let token = await tokenEncode(email, user_id._id);
       await User.updateOne({ email }, { $set: { otp: "0" } });
